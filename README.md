@@ -1,1 +1,1 @@
-# odoo_extra_module
+# Modulo Extra de Cuentas Corrientes

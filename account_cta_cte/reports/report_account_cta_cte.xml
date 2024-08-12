@@ -1,0 +1,97 @@
+<odoo>
+    <!-- Report Definition -->
+    <record id="action_account_cta_cte_report" model="ir.actions.report">
+        <field name="name">Reporte Cuenta Corriente</field>
+        <field name="model">account.cta.cte</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">account_cta_cte.report_account_cta_cte_template</field>
+        <field name="report_file">account_cta_cte.report_account_cta_cte_template</field>
+        <field name="print_report_name">"Cuenta Corriente - %s" % (object.name)</field>
+    </record>
+
+    <!-- Report Template -->
+    <template id="report_account_cta_cte_template">
+        <t t-call="web.html_container">
+            <div class= "header">
+                <style>
+                    h2 {
+                        text-align: center;
+                        margin-top: 50px;
+                        font-weight: bold;
+                    }
+                </style>
+                <h2>Reporte Cuenta Corriente</h2>
+            </div>
+            <div class="page">
+                <style>
+                    .page {
+                        font-family: Arial, sans-serif;
+                        padding: 20px;
+                    }
+                    table {
+                        width: 100%;
+                        border-collapse: collapse;
+                        margin: 20px 0;
+                    }
+                    p {
+                        font-size: 14px;
+                    }
+                    th, td {
+                        border: 1px solid #dddddd;
+                        text-align: left;
+                        padding: 8px;
+                    }
+                    th {
+                        background-color: #f2f2f2;
+                    }
+                    tbody tr:nth-child(even) {
+                        background-color: #f9f9f9;
+                    }
+                    .body_footer {
+                        position: absolute;
+                        bottom: 0;
+                        width: 100%;
+                        text-align: center;
+                        font-size: 16px;
+                        font-style: italic;
+                        padding: 10px;
+                    }
+                    .date {
+                        font-size: 18px;
+                        font-weight: bold;
+                    }
+                </style>
+                <t t-if="data">
+                    <p class="date">Fecha: <t t-esc="data.date"/></p>
+                </t>
+                <t t-else="">
+                    <p class="date">Fecha: No disponible</p>
+                </t>
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Fecha de Creación</th>
+                            <th>Saldo</th>
+                            <th>Descripción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="docs" t-as="doc">
+                            <tr>
+                                <td><t t-esc="doc.name"/></td>
+                                <td><t t-esc="doc.creation_date.strftime('%d/%m/%Y')"/></td>
+                                <td><t t-esc="doc.balance"/></td>
+                                <td><t t-esc="doc.description"/></td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+                <div class="body_footer">
+                    IT Group
+                </div>
+            </div>
+        </t>
+    </template>
+
+</odoo>

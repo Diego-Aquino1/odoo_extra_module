@@ -1,0 +1,59 @@
+<odoo>
+    <!-- Form View -->
+    <record id="view_account_cta_cte_form" model="ir.ui.view">
+        <field name="name">account.cta.cte.form</field>
+        <field name="model">account.cta.cte</field>
+        <field name="arch" type="xml">
+            <form string="Cuenta Corriente">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="creation_date"/>
+                        <field name="balance"/>
+                        <field name="description"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Tree View -->
+    <record id="view_account_cta_cte_tree" model="ir.ui.view">
+        <field name="name">account.cta.cte.tree</field>
+        <field name="model">account.cta.cte</field>
+        <field name="arch" type="xml">
+            <tree string="Cuenta Corriente">
+                <field name="name"/>
+                <field name="creation_date"/>
+                <field name="balance"/>
+                <field name="description"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_account_cta_cte" model="ir.actions.act_window">
+        <field name="name">Cuentas Corrientes</field>
+        <field name="res_model">account.cta.cte</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_account_cta_cte_tree"/>
+    </record>
+
+    <!-- Action Server -->
+    <record id="action_print_all_report" model="ir.actions.server">
+        <field name="name">Print Reports</field>
+        <field name="model_id" ref="model_account_cta_cte"/>
+        <field name="state">code</field>
+        <field name="code">
+            action = model.action_print_report()
+        </field>
+    </record>
+
+    <!-- Menu Item -->
+    <menuitem id="menu_account_cta_cte_root" name="CTA CTE Accounts" sequence="10"/>
+    <menuitem id="menu_account_cta_cte" name="Cuentas Corrientes" parent="menu_account_cta_cte_root" action="action_account_cta_cte" sequence="10"/>
+    <menuitem id="menu_account_cta_cte_print" name="Imprimir Reporte" parent="menu_account_cta_cte_root" action="action_print_all_report" sequence="20"/>
+
+    <!-- Add to Main Menu -->
+    <menuitem id="menu_account_cta_cte_print_main" name="Acción Cuenta Corriente" parent="base.menu_management" action="action_print_all_report" sequence="80"/>
+</odoo> 
